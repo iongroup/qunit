@@ -102,7 +102,8 @@ class Assert {
 			throw new Error( "assertion outside test context, in " + sourceFromStacktrace( 2 ) );
 		}
 
-		if ( currentTest.usedAsync === true && currentTest.semaphore === 0 ) {
+		if ( currentTest.usedAsync === true && currentTest.semaphore === 0 && !currentTest.assertAfterAsync) {
+			currentTest.assertAfterAsync = true;
 			currentTest.pushFailure( "Assertion after the final `assert.async` was resolved",
 				sourceFromStacktrace( 2 ) );
 
